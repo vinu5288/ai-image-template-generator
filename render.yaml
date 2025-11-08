@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ai-image-template-generator
+    env: node
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18.x
+      - key: VITE_GEMINI_API_KEY
+        fromService:
+          name: ai-image-template-generator
+          type: web
+          property: env.VITE_GEMINI_API_KEY

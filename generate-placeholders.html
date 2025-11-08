@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Placeholder Images</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .placeholder {
+            width: 200px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Right-click and save each image below:</h1>
+    <div class="container" id="container">
+        <!-- Placeholders will be added here by JavaScript -->
+    </div>
+
+    <script>
+        const templates = [
+            'polaroid_hug',
+            'hugging_younger_self',
+            'cute_polaroid_pose',
+            'past_present_handshake',
+            'park_bench_conversation',
+            'sunset_street_walk'
+        ];
+
+        const container = document.getElementById('container');
+        
+        templates.forEach(template => {
+            const div = document.createElement('div');
+            div.className = 'placeholder';
+            div.style.backgroundColor = getRandomPastelColor();
+            div.textContent = template.replace(/_/g, ' ');
+            div.id = template;
+            container.appendChild(div);
+            
+            // Convert to image
+            setTimeout(() => {
+                html2canvas(div).then(canvas => {
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/jpeg');
+                    img.style.maxWidth = '100%';
+                    img.style.border = '1px solid #ddd';
+                    img.style.borderRadius = '4px';
+                    img.download = `${template}.jpeg`;
+                    
+                    // Add download link
+                    const link = document.createElement('a');
+                    link.href = img.src;
+                    link.download = `${template}.jpeg`;
+                    link.textContent = 'Download';
+                    link.style.display = 'block';
+                    link.style.marginTop = '10px';
+                    
+                    div.innerHTML = '';
+                    div.appendChild(img);
+                    div.appendChild(document.createElement('br'));
+                    div.appendChild(link);
+                });
+            }, 100);
+        });
+
+        function getRandomPastelColor() {
+            const hue = Math.floor(Math.random() * 360);
+            return `hsl(${hue}, 70%, 85%)`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "AI Image Template Generator",
+  "description": "Upload a photo, choose a creative template, and let AI generate a new, stylized image for you based on your photo and a text prompt.",
+  "requestFramePermissions": []
+}
