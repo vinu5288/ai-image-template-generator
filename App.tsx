@@ -10,6 +10,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import CookiePolicyPage from './pages/CookiePolicyPage';
 import ImprintPage from './pages/ImprintPage';
+import AdSenseScript from './components/AdSenseScript';
 
 type Theme = 'light' | 'dark';
 
@@ -33,7 +34,9 @@ const App: React.FC = () => {
     };
 
     return (
-        <Routes>
+        <>
+            <AdSenseScript />
+            <Routes>
             <Route path="/" element={<Layout theme={theme} toggleTheme={toggleTheme} />}>
                 <Route index element={<HomePage />} />
                 <Route path="about" element={<AboutPage />} />
@@ -44,7 +47,8 @@ const App: React.FC = () => {
                 <Route path="cookies" element={<CookiePolicyPage />} />
                 <Route path="owner-info" element={<ImprintPage />} />
             </Route>
-        </Routes>
+            </Routes>
+        </>
     );
 };
 
